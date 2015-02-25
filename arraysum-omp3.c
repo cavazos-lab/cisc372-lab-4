@@ -23,10 +23,11 @@ long arraysum(int n, long * a) {
   int numThreads;
   int count = 0; 
   int i;
-#pragma omp parallel 
+  int nid;
+#pragma omp parallel private(nid)
   {
     numThreads = omp_get_num_threads();
-    int nid = omp_get_thread_num();
+    nid = omp_get_thread_num();
     for (i=nid, tempsum[nid]=0; i<n; i+=numThreads) 
         tempsum[nid] += a[i];
   }
