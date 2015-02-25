@@ -18,7 +18,7 @@ long * initArray(int n) {
 
 long arraysum(int n, long * a) {
   int i;
-  long sum=0.0;
+  long sum=0;
   for (i = 0; i < n; i++)
     sum += a[i];
   return sum;

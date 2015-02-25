@@ -18,7 +18,7 @@ long * initArray(int n) {
 }
 
 long arraysum(int n, long * a) {
-  long sum=0.0;
+  long sum=0;
   long tempsum[100]; // assume number of threads < 100
   int numThreads;
   int count = 0; 
