@@ -28,7 +28,8 @@ long arraysum(int n, long * a) {
   {
     numThreads = omp_get_num_threads();
     nid = omp_get_thread_num();
-    for (i=nid, tempsum[nid]=0; i<n; i+=numThreads) 
+    for (i=nid*n/numThreads, tempsum[nid]=0; i<(nid+1)*n/numThreads; i++) 
+    //for (i=nid, tempsum[nid]=0; i<n; i+=numThreads) 
         tempsum[nid] += a[i];
   }
   for (i=0; i<numThreads;i++) sum+=tempsum[i]; 
