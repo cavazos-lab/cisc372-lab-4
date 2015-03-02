@@ -19,21 +19,19 @@ long * initArray(int n) {
 
 long arraysum(int n, long * a) {
   long sum=0;
-  long tempsum[100]; // assume number of threads < 100
+  long tempsum=0; // assume number of threads < 100
   int numThreads;
   int count = 0; 
   int i;
   int nid;
-#pragma omp parallel private(nid,i)
+#pragma omp parallel private(nid,i) reduction(+:tempsum)
   {
     numThreads = omp_get_num_threads();
     nid = omp_get_thread_num();
-    for (i=nid*n/numThreads, tempsum[nid]=0; i<(nid+1)*n/numThreads; i++) 
-    //for (i=nid, tempsum[nid]=0; i<n; i+=numThreads) 
-        tempsum[nid] += a[i];
+    for (i=nid*n/numThreads; i<(nid+1)*n/numThreads; i++) 
+        tempsum += a[i];
   }
-  for (i=0; i<numThreads;i++) sum+=tempsum[i]; 
-
+  sum = tempsum;
   return sum;
 }
 
