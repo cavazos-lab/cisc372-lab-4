@@ -24,7 +24,7 @@ long arraysum(int n, long * a) {
   int count = 0; 
   int i;
   int nid;
-#pragma omp parallel private(nid,i)
+#pragma omp parallel private(nid)
   {
     numThreads = omp_get_num_threads();
     nid = omp_get_thread_num();
