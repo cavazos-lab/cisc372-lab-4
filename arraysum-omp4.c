@@ -24,6 +24,8 @@ long arraysum(int n, long * a) {
   int count = 0; 
   int i;
   int nid;
+/* The following is a correct implementation */
+/* Note how the work is divided among threads (i.e. look at the for loop )*/
 #pragma omp parallel private(nid,i)
   {
     numThreads = omp_get_num_threads();

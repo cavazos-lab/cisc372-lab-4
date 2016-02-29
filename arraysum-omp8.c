@@ -20,10 +20,10 @@ long * initArray(int n) {
 long arraysum(int n, long * a) {
   int i;
   long sum=0;
-
-/* Note: the following is an incorrect OpenMP implementation */
-#pragma omp parallel for
+/* Correct implementation with atomic */
+#pragma omp parallel for 
   for (i = 0; i < n; i++)
+    #pragma omp atomic
     sum += a[i];
   return sum;
 }

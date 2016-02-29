@@ -20,6 +20,8 @@ long * initArray(int n) {
 long arraysum(int n, long * a) {
   int i;
   long sum=0;
+
+/* Note: the following is an incorrect OpenMP impelmentation */
 #pragma omp parallel
 {
   for (i = 0; i < n; i++)

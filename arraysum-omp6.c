@@ -18,12 +18,20 @@ long * initArray(int n) {
 }
 
 long arraysum(int n, long * a) {
-  int i;
   long sum=0;
-#pragma omp parallel for 
-  for (i = 0; i < n; i++)
-    #pragma omp atomic
-    sum += a[i];
+  int numThreads;
+  int count = 0; 
+  int i;
+  int nid;
+/* The following is an correct implementation */
+/* Reduction can also be used with just parallel construct (no "parallel for") */
+#pragma omp parallel private(nid,i) reduction(+:sum)
+  {
+    numThreads = omp_get_num_threads();
+    nid = omp_get_thread_num();
+    for (i=nid*n/numThreads; i<(nid+1)*n/numThreads; i++) 
+        sum += a[i];
+  }
   return sum;
 }
 

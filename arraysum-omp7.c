@@ -20,8 +20,10 @@ long * initArray(int n) {
 long arraysum(int n, long * a) {
   int i;
   long sum=0;
-#pragma omp parallel for reduction(+:sum) 
+/* Correct implementation with critical */
+#pragma omp parallel for 
   for (i = 0; i < n; i++)
+    #pragma omp critical
     sum += a[i];
   return sum;
 }
